@@ -1,31 +1,30 @@
 var path = require('path');
 var express = require('express');
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 8080
 
-if(process.env.NODE_ENV !== 'production'){
-  var webpack = require('webpack');
-  var webpackMiddleware = require('webpack-dev-middleware');
-  var config = require('./webpack.config.js');
+// using webpack-dev-server and middleware in development environment
+if(process.env.NODE_ENV !== 'production') {
+  var webpackDevMiddleware = require('webpack-dev-middleware');
   var webpackHotMiddleware = require('webpack-hot-middleware');
+  var webpack = require('webpack');
+  var config = require('./webpack.config');
   var compiler = webpack(config);
 
-  app.use(webpackMiddleware(compiler, {noInfo:true, publicPath:config.output.publicPath}));
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
   app.use(webpackHotMiddleware(compiler));
 }
 
+app.use(express.static(__dirname + '/dist'));
 
-app.use(express.static(__dirname + './dist'));
-
-app.get('/',function response(req,res){
-  res.sendFile(path.join(__dirname ,'index.html'));
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(PORT, function(error){
-  if(error){
+app.listen(PORT, function(error) {
+  if (error) {
     console.error(error);
-
-  }else{
-    console.info(" Listening on port %s. Visit http://localhost:%s/ in your browser.",PORT,PORT);
+  } else {
+    console.info("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
   }
 });

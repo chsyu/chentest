@@ -1,13 +1,11 @@
 {
-  "name": "redux-simple-starter",
-  "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
-  "main": "index.js",
-  "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
+  "name": "react-node-starter",
+  "version": "0.2.0",
+  "description": "an example for deploying a React + NodeJS app to Heroku",
+  "main": "app.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
-    "test:watch": "npm run test -- --watch",
     "postinstall": "webpack -p --config webpack.prod.config.js"
   },
   "author": "",
