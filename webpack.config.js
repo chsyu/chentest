@@ -1,32 +1,28 @@
-
-
-var path = require('path');
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
-  resolve: {
-    extensions: ['','.js']
-  },
-
-  entry:[
+  entry: [
     './src/index'
   ],
-  output:{
-    path: path.join(__dirname,'/dist'),
-    filename:'bundle.js',
-    publicPath: '/'
+  module: {
+    loaders: [{
+      test: /\.js?$/,
+      loader: 'babel',
+      exclude: /node_modules/
+    }]
+  },
+  resolve: {
+    extensions: ['', '.js']
+  },
+  output: {
+    path: path.join(__dirname, '/dist'),
+    publicPath: '/',
+    filename: 'bundle.js'
   },
   devServer: {
-    contentBase:'./dist',
-    hot:true
-  },
-  module:{
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel',
-
-    }]
+    contentBase: './dist',
+    hot: true
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
